@@ -6,12 +6,24 @@ Storybook を中心とした UI 提案・デザインシステム構築ワーク
 
 ## 導入
 
+### 個人で使う
+
 ```bash
 /plugin marketplace add chun-mura/uidd
 /plugin install uidd@uidd
 
 # 併用推奨: aidd (汎用タスク) + superpowers (実装プロセス)
 ```
+
+### クライアント向け公開
+
+uidd リポジトリは public のため、クライアントは自身の権限追加なしに導入できる。
+
+1. **配布形式**: クライアントに `chun-mura/uidd` を marketplace として案内する。リポジトリへの書き込み権限は不要 (public リポジトリの clone/参照のみ)
+2. **クライアント側の導入手順**: 上記「個人で使う」と同じ2コマンド (`/plugin marketplace add chun-mura/uidd` → `/plugin install uidd@uidd`) を案内する
+3. **ライセンス**: [MIT](LICENSE)。再配布・改変を制限しない
+4. **更新の配信**: `plugin.json` の `version` に固定配信される。リリース時は必ず version を上げて CHANGELOG に記録する (運用ルール3)。クライアント側は `/plugin update uidd` で追従する。破壊的変更を出す場合は CHANGELOG に明記し、事前に連絡する
+5. **プロジェクト単位の自動導入**: クライアント案件のリポジトリに書き込み権限があり、チーム全員へ自動でインストール提案したい場合は、aidd 運用ルール8 と同じ方式 (`.claude/settings.json` への team-settings マージ) を検討する。uidd 側の team-settings テンプレートは未整備 (必要になったタイミングで追加する)
 
 ## インデックス
 

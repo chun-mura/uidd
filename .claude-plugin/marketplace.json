@@ -6,7 +6,9 @@
     {
       "name": "uidd",
       "source": ".",
-      "description": "UI-driven development toolkit built around Storybook"
+      "description": "UI-driven development toolkit built around Storybook",
+      "category": "workflow",
+      "tags": ["storybook", "design-system", "ui-proposal", "verification"]
     }
   ]
 }

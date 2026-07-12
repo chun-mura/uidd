@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 - 2026-07-12
+
+Client-facing distribution readiness (per design spec スコープ外 note: "公開時に README へ追記"):
+
+- Add MIT `LICENSE`
+- `plugin.json` gains `homepage`/`repository`/`license`/`keywords`; marketplace entry gains `category`/`tags`
+- README gains a "クライアント向け公開" section: distribution steps, license, version-pinned update flow, and a pointer to aidd's team-settings pattern for project-wide auto-install
+
 ## 0.2.0 - 2026-07-12
 
 Phase 1 initial assets (per design spec 2026-07-12-uidd-design.md):
