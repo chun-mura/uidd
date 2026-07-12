@@ -1,0 +1,12 @@
+{
+  "name": "uidd-local",
+  "description": "Local marketplace for the uidd UI-driven development toolkit",
+  "owner": { "name": "chun-mura" },
+  "plugins": [
+    {
+      "name": "uidd",
+      "source": ".",
+      "description": "UI-driven development toolkit built around Storybook"
+    }
+  ]
+}
