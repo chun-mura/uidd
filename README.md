@@ -8,7 +8,7 @@ Storybook を中心とした UI 提案・デザインシステム構築ワーク
 
 ```bash
 /plugin marketplace add chun-mura/uidd
-/plugin install uidd@uidd-local
+/plugin install uidd@uidd
 
 # 併用推奨: aidd (汎用タスク) + superpowers (実装プロセス)
 ```
