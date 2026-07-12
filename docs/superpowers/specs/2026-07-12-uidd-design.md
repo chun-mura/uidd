@@ -1,7 +1,7 @@
 # uidd — UI-Driven Development Toolkit 設計
 
 日付: 2026-07-12
-ステータス: レビュー待ち
+ステータス: フェーズ1 実装済み (v0.2.0 で初期資産、v0.3.0 でクライアント配布対応)
 
 ## 目的
 
@@ -60,7 +60,7 @@ uidd/
 ├── commands/                # /uidd:* コマンド
 ├── agents/                  # UI 特化サブエージェント (必要になったら)
 ├── docs/
-│   ├── tips/                # 方法論の知見・aidd/superpowers へのポインタ
+│   ├── tips/                # 方法論の知見・aidd/superpowers へのポインタ (フェーズ2 で必要になったら作成。現状なし)
 │   └── superpowers/specs/   # 設計ドキュメント (本ファイル含む)
 └── README.md                # 全資産インデックス + 導入手順
 ```

@@ -1,0 +1,43 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate plugin manifest JSON
+        run: |
+          jq -e . .claude-plugin/plugin.json > /dev/null
+          jq -e . .claude-plugin/marketplace.json > /dev/null
+
+      # Operating rule 3: asset changes must ship with a version bump
+      - name: Require version bump when commands/skills change
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            base="origin/${{ github.base_ref }}"
+          elif [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ] \
+            && git cat-file -e "${{ github.event.before }}" 2>/dev/null; then
+            base="${{ github.event.before }}"
+          else
+            echo "No base commit to diff against; skipping bump check"
+            exit 0
+          fi
+          changed=$(git diff --name-only "$base"...HEAD)
+          if echo "$changed" | grep -qE '^(commands/|skills/)'; then
+            if git diff "$base"...HEAD -- .claude-plugin/plugin.json | grep -q '"version"'; then
+              echo "OK: asset change is accompanied by a version bump"
+            else
+              echo "commands/ or skills/ changed without a version bump in .claude-plugin/plugin.json (operating rule 3)" >&2
+              exit 1
+            fi
+          else
+            echo "No asset changes; bump not required"
+          fi
