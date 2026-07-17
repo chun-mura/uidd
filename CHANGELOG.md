@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 - 2026-07-17
+
+From external plugin review (adopted findings 1 and 3):
+
+- `ui-propose`: add a rendering-verification step — when a browser MCP and a local Storybook script are both detected, each proposal story is rendered, screenshotted to `docs/proposals/assets/`, fixed on visual defects, and the captures are embedded in the proposal artifact; without a capture environment the command states "キャプチャなしで続行する" and the artifact records "キャプチャ: 未実施 (環境なし)" (same degrade contract as the other detections)
+- `ui-judgment`: add a 昇格候補 section implementing the 2回ルール count — a first-time judgment is recorded as a candidate; on its second occurrence it is promoted to a real rule and removed from candidates. `ui-propose` now proposes candidate recording instead of direct rule addition
+
 ## 0.4.0 - 2026-07-12
 
 Command refinements and CI, from plugin self-review:
