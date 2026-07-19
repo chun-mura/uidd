@@ -1,6 +1,6 @@
 {
   "name": "uidd",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "UI-driven development toolkit: Storybook-based design system workflows, UI proposal flows, and verification commands",
   "author": { "name": "chun-mura" },
   "homepage": "https://github.com/chun-mura/uidd",

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0 - 2026-07-19
+
+Per design spec 2026-07-19-figma-implement-uiux-principles-design.md:
+
+- Add `commands/figma-implement.md` — faithful component implementation from a finalized Figma design (component granularity). Three-stage dependency detection following ui-propose: missing-argument AskUserQuestion, Figma MCP detection with image-mode fallback (explicit "画像モード (忠実度低下) で続行する" output; aborts if no image either), capture-environment detection gating the fidelity-verification step. Flow: design-data acquisition → mapping to existing tokens/components (new values are listed, never silently added) → implementation consulting ui-judgment (project rules, wins on conflict) then uiux-principles → capture-vs-Figma comparison with intentional deviations reported
+- Add `skills/uiux-principles/` — source-verified catalog of general UI/UX principles (Nielsen 10 heuristics, Gestalt grouping, WCAG implementation points), every entry carries a source URL. Scoped as the general-knowledge counterpart to ui-judgment (project-derived, takes precedence on conflict); machine-verifiable a11y checks stay in sb-verify. Grows only from real-project need, no comprehensive cataloging
+
 ## 0.5.0 - 2026-07-17
 
 From external plugin review (adopted findings 1 and 3):
