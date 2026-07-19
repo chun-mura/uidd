@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.0 - 2026-07-19
+
+Per design spec 2026-07-19-vrt-token-lint-state-coverage-design.md (design-process gap analysis, high-priority items):
+
+- Add `commands/vrt.md` — visual regression verification. Detects Chromatic / reg-suit and orchestrates the tool when present (no double bookkeeping); otherwise runs local-baseline mode (baseline save → capture → diff, numeric when a diff tool exists, explicit visual-comparison mode otherwise). Baseline updates always require user approval via AskUserQuestion; aborts with setup guidance when no capture environment exists (the one command that cannot degrade without captures)
+- Add `commands/token-lint.md` — continuous token-compliance check: hardcoded-value detection (colors, spacing, typography) → nearest-token proposal → Figma variables drift diff when Figma MCP is present. Scoped against ds-audit (one-shot broad inventory) with mutual pointers in both files
+- `sb-verify`: split state coverage out of check 1 into a new check 4 (one concern per check — check 1 already inspected major states, so a plain addition would have duplicated it). Check 1 now verifies story existence only; check 4 fails on states present in props/branches but missing stories, and lists pseudo-class states (hover/focus) as informational only
+- Master design spec: record deferred candidates (heuristic UI review command, hardcoded-value hook, proposal sharing, screen-level figma-implement, Code to Canvas, UX writing, usability-test planning) with promotion criteria (2回ルール)
+
 ## 0.6.1 - 2026-07-19
 
 From final whole-branch review of 0.6.0:
