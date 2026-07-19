@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.1 - 2026-07-19
+
+From final whole-branch review of 0.7.0:
+
+- `vrt`: pin `<story-id>` to Storybook's canonical ID and warn that changing the derivation silently turns every comparison into "初回作成" (skipped regression check); tool-orchestration mode now states which report sections apply
+- `token-lint`: deliverable item 4 degrade note covers both skip reasons (MCP なし / トークン定義なし)
+- Master design spec: VRT phase-2 deferral note replaced with a pointer to the shipped `commands/vrt.md`; sb-verify descriptions updated to 4 checks
+
 ## 0.7.0 - 2026-07-19
 
 Per design spec 2026-07-19-vrt-token-lint-state-coverage-design.md (design-process gap analysis, high-priority items):
