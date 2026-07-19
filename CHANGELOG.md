@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.1 - 2026-07-19
+
+From final whole-branch review of 0.6.0:
+
+- `uiux-principles`: Gestalt 出典 line now covers all four listed principles (added verified NN/g URLs for common region and continuity/alignment; every item must have a source per the skill's own rule)
+- `figma-implement`: dependency detection item 1 gains the same target-path existence check as ui-propose (同型 constraint); item 2 notes that Figma MCP plan/seat requirements are unverified and must be checked on first real use
+
 ## 0.6.0 - 2026-07-19
 
 Per design spec 2026-07-19-figma-implement-uiux-principles-design.md:
