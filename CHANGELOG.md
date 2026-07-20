@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0 - 2026-07-20
+
+- Freeze `skills/ui-judgment` while it has no real-project rules; retain a non-distributed reactivation template and stop requiring writes to an installed plugin cache
+- Narrow `uiux-principles` to its WCAG design contract and move Nielsen heuristics and Gestalt grouping into on-demand references
+- Update `figma-implement` to load those general-principle references only when needed, and update both implementation commands to use explicitly supplied project rules instead of the frozen skill
+
 ## 0.7.1 - 2026-07-19
 
 From final whole-branch review of 0.7.0:

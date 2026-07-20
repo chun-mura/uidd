@@ -19,11 +19,11 @@ uidd commands/skills must run standalone even if aidd/superpowers are not instal
 ## Operating rules (shared with aidd — do not relitigate these per-PR)
 
 1. One file, one concern. Every doc opens with "when to use this."
-2. **2回ルール (rule of two)**: nothing gets promoted into `commands/` or `skills/` (especially `skills/ui-judgment/`) until it has been used twice on a real project. A first-time UI judgment goes into `ui-judgment`'s 昇格候補 (promotion-candidate) section; only the second occurrence promotes it to a real rule. Do not add general/unsourced UI opinions directly to the rule sections.
+2. **2回ルール (rule of two)**: nothing gets promoted into `commands/` or `skills/` until it has been used twice on a real project. `ui-judgment` is frozen while it has no real rules; reactivate it only when repeated, evidence-backed project judgments can justify it. Do not add general/unsourced UI opinions as project rules.
 3. **README is the index.** Any time a command/skill is added, changed, or removed: update `README.md`'s table AND bump `version` in `.claude-plugin/plugin.json` AND add a `CHANGELOG.md` entry. CI (`.github/workflows/validate.yml`) enforces the version bump — a PR touching `commands/` or `skills/` without a `"version"` diff in `plugin.json` fails.
 4. No duplication with superpowers/aidd — pointer only.
 5. No passive documentation — anything meant to influence a session must be a skill (or hook), not a doc nobody reads.
-6. `skills/ui-judgment` entries must cite the real project decision that justified them (`根拠: <案件・判断の要約>, <date>`). Judgment learned in a client-project session must be folded back into uidd itself first — uidd is the single source of truth; local per-project edits are not authoritative.
+6. When `ui-judgment` is reactivated, every entry must cite the real project decision that justified it (`根拠: <案件・判断の要約>, <date>`). Do not require writes to an installed plugin cache during a client-project session; collect evidence through the project workflow and update the plugin source only when reactivation is justified.
 
 ## Verifying changes
 
@@ -44,14 +44,14 @@ Every command follows the same shape: YAML frontmatter (`description`, `argument
 
 Command relationships (who feeds whom, and why they're not merged):
 
-- `ui-propose` (要件 → 複数案) and `figma-implement` (確定 Figma デザイン → 忠実実装) are the two implementation entry points — one explores options, the other implements a fixed design 1:1. Both write generated code + Storybook stories, both consult `skills/ui-judgment` (project rules) before `skills/uiux-principles` (general principles) for UI decisions, and both propose 昇格候補 recording when a judgment has no existing rule.
+- `ui-propose` (要件 → 複数案) and `figma-implement` (確定 Figma デザイン → 忠実実装) are the two implementation entry points — one explores options, the other implements a fixed design 1:1. Both write generated code + Storybook stories. Explicitly provided project rules take precedence; `figma-implement` reads `uiux-principles` and its specific references only when a general principle is needed.
 - `ds-audit` (one-shot, broad: colors + spacing + duplicate components → `docs/audit/<date>-audit.md`) vs `token-lint` (repeated, narrow: hardcoded-value → nearest-token + Figma variables drift → `docs/audit/<date>-token-lint.md`). Don't extend one to cover the other's job — they're intentionally scoped apart and cross-reference each other in their own files.
 - `sb-verify` is an orchestrator over 4 independent checks (story coverage, a11y, interaction, state coverage) — each reports its own PASS/FAIL block; one check failing or being unrunnable must never block the others. `vrt` is visual-regression only, deliberately separate from `sb-verify` (different concern: pixel diff vs behavior/coverage), and either orchestrates a detected tool (Chromatic/reg-suit — never double-books against local baselines) or falls back to a local-baseline mode where **baseline overwrites always require `AskUserQuestion` approval**, and the run aborts entirely if no capture environment exists (the one command that cannot degrade further).
 - Large targets (rough thresholds noted per-command: >10 files/components, >50 files for token-lint) fan collection out to subagents; aggregation/judgment always stays in the main context — don't move judgment into the fan-out.
 
-## Skill precedence: ui-judgment vs uiux-principles
+## UI judgment precedence
 
-`ui-judgment` (project-derived, grown from real decisions, starts empty) **always wins over** `uiux-principles` (general, source-verified catalog — Nielsen heuristics / Gestalt / WCAG, every entry requires a citation URL) when the two conflict. Read `ui-judgment` first for any UI decision; fall back to `uiux-principles` only when no project rule applies. Machine-verifiable a11y checks (axe, alt text, label association) belong in `sb-verify`, not in `uiux-principles` — that skill is for design-judgment-level principles only, not PASS/FAIL automation.
+`ui-judgment` is frozen until real-project evidence justifies reactivation. When a client project explicitly provides a confirmed UI rule, it wins over `uiux-principles`. `uiux-principles` retains WCAG design criteria; Nielsen heuristics and Gestalt grouping are on-demand references, not auto-triggered catalog content. Machine-verifiable a11y checks (axe, alt text, label association) belong in `sb-verify`, not in `uiux-principles`.
 
 ## Commands are unverified — this matters when editing them
 

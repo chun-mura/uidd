@@ -1,41 +1,17 @@
 ---
 name: uiux-principles
-description: Use when making principle-based UI/UX decisions during implementation, proposal, or review work — information hierarchy, feedback, consistency, perceptual grouping, or accessibility-related design judgment. Provides a source-verified catalog of general UI/UX principles.
+description: Use when making accessibility-related UI/UX design judgments that require verifiable WCAG criteria, such as contrast, target size, focus visibility, labels, or reflow. Read the Nielsen or Gestalt references only when a command explicitly requires them.
 ---
 
-# 汎用 UIUX 原則カタログ
+# UIUX 設計判断の契約と WCAG 要点
 
-UI の実装・提案・レビューで原則ベースの判断が必要なとき、このカタログを参照する。全項目に出典 URL を付す (出典のない項目を追加しない)。
+WCAG の数値・達成基準を伴う UI 設計判断で参照する。一般的な Nielsen ヒューリスティクスとゲシュタルト原則は、コマンドが明示した場合のみ `references/` から読む。全項目に出典 URL を付す (出典のない項目を追加しない)。
 
 ## 棲み分け (重要)
 
-- **案件由来ルールは `ui-judgment`**: 実案件の実判断から育てるルール集。**このスキルと矛盾する場合は ui-judgment が優先** (案件の確定判断 > 汎用原則)
+- **案件由来ルールがある場合はそれを優先**: 利用側プロジェクトから明示的に提供された確定判断は、このスキルより優先する (案件の確定判断 > 汎用原則)
 - **機械検証可能な a11y チェックは `sb-verify`**: axe 等で検証できる項目の PASS/FAIL 判定はコマンド側の担当。このスキルは設計判断レベル (どう作るかの判断) のみを扱う
 - **拡張方針**: 実案件で必要になった原則のみ追加する。包括カタログ化しない。追加時は出典 URL 必須、uidd 運用ルール3 に従い version を上げ CHANGELOG に記録する
-
-## Nielsen 10 ユーザビリティヒューリスティクス
-
-出典: https://www.nngroup.com/articles/ten-usability-heuristics/
-
-1. **システム状態の可視化**: 操作の結果・進行状況を適切な時間内にフィードバックする (ローディング・保存済み表示・選択状態)
-2. **実世界との一致**: ユーザーに馴染みのある言葉・概念・順序を使う。内部用語を UI に漏らさない
-3. **ユーザーの制御と自由**: やり直し・キャンセルの明確な出口を用意する (undo、閉じる、戻る)
-4. **一貫性と標準**: 同じものは同じ見た目・同じ言葉にする。プラットフォーム慣習に従う
-5. **エラーの防止**: エラー表示より発生自体の防止を優先する (確認、制約付き入力、危険操作の分離)
-6. **再認 > 想起**: 選択肢・情報を見えるようにし、記憶に頼らせない
-7. **柔軟性と効率**: 初心者向けの導線と熟練者向けのショートカットを両立させる
-8. **美的で最小限のデザイン**: 判断に不要な情報を削る。情報の追加は既存情報との相対的競合
-9. **エラーの認識・診断・回復支援**: エラーは平易な言葉で、原因と解決策を添えて示す
-10. **ヘルプとドキュメント**: 必要なら文脈内で、タスクに即した短いヘルプを出す
-
-## ゲシュタルト原則 (知覚グルーピング)
-
-出典: https://www.nngroup.com/articles/gestalt-proximity/ / https://www.nngroup.com/articles/gestalt-similarity/ / https://www.nngroup.com/articles/common-region/ / https://www.nngroup.com/videos/continuation-gestalt/
-
-- **近接**: 近くに置かれた要素は同じグループと知覚される。関連要素の間隔 < 無関係要素の間隔、を必ず守る (余白の使い分けが枠線より優先)
-- **類同**: 見た目 (色・形・サイズ) が同じ要素は同じ役割と知覚される。同じ機能は同じスタイル、違う機能に同じスタイルを使わない
-- **共通領域**: 同じ背景・枠内の要素は1グループと知覚される。カード・セクション分割の根拠
-- **連続・整列**: 整列された要素は関連づけて読まれる。グリッド・ベースラインを揃える
 
 ## WCAG 実装判断の要点
 
