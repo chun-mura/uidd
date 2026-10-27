@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-uidd is a Claude Code **plugin** (not an app) distributed via `/plugin marketplace add chun-mura/uidd`. It ships `commands/` (task-specific prompts, invoked as `/uidd:*`) and `skills/` (auto-triggered judgment references). There is no build, no package.json, no test suite — the "code" is markdown prompt files, and the repo's own CI validates *those*, not application logic. Full rationale lives in `docs/superpowers/specs/2026-07-12-uidd-design.md`; changelog history (which explains *why* each shape decision was made) is in `CHANGELOG.md`.
+uidd is a **plugin** (not an app) for Claude Code, Codex and Cursor, distributed via `/plugin marketplace add chun-mura/uidd` (Claude Code) and `codex plugin marketplace add chun-mura/uidd` (Codex). It ships user-invoked task skills (`skills/<name>/`, invoked as `/uidd:*` in Claude Code, `$uidd:*` in Codex, `/<name>` in Cursor) and auto-triggered judgment references (`skills/uiux-principles/`), with one manifest per harness (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/` — keep `version` identical; CI checks only the first).
+
+The task skills were `commands/` until 0.8.0. They moved because Codex does not ship commands in plugins and Cursor recommends skills. They carry `disable-model-invocation: true` (plus `agents/openai.yaml` with `allow_implicit_invocation: false` for Codex) so no harness starts them on its own. Paths in them are relative to the skill directory, because `${CLAUDE_PLUGIN_ROOT}` is not set for skill text in Codex or Cursor. There is no build, no package.json, no test suite — the "code" is markdown prompt files, and the repo's own CI validates *those*, not application logic. Full rationale lives in `docs/superpowers/specs/2026-07-12-uidd-design.md`; changelog history (which explains *why* each shape decision was made) is in `CHANGELOG.md`.
 
 ## Where uidd sits relative to aidd / superpowers
 
@@ -38,9 +40,9 @@ This is exactly what `.github/workflows/validate.yml` runs on push/PR to `main`,
 
 There is no linter/formatter for the markdown prompt files themselves — review them by reading, matching the existing structure (frontmatter → 対象 → 依存検出 → フロー/オーケストレーション → 出力/報告形式).
 
-## Command architecture (read before editing any `commands/*.md`)
+## Command architecture (read before editing any task skill — `skills/<name>/SKILL.md` other than `uiux-principles`)
 
-Every command follows the same shape: YAML frontmatter (`description`, `argument-hint`) → `対象: $ARGUMENTS` → a **依存検出 (dependency detection)** section that runs before any real work → the main flow → an output/report section. The dependency-detection step is not optional boilerplate — it is the degrade contract: each command detects its dependencies (Storybook MCP, Figma MCP, capture/browser MCP, VRT tooling, token definitions) up front and either explicitly announces a degraded mode ("ファイル直読みモードで続行する", "画像モード (忠実度低下) で続行する", "キャプチャなしで続行する") or aborts with a clear message. Never silently continue past a missing dependency, and never invent/guess a value a human should confirm (paths, colors, tokens) — use `AskUserQuestion`.
+Every task skill follows the same shape: YAML frontmatter (`name`, `description`, `argument-hint`, `disable-model-invocation`) → one paragraph on how paths, `$ARGUMENTS` and `AskUserQuestion` read in harnesses without them → `対象: $ARGUMENTS` → a **依存検出 (dependency detection)** section that runs before any real work → the main flow → an output/report section. The dependency-detection step is not optional boilerplate — it is the degrade contract: each command detects its dependencies (Storybook MCP, Figma MCP, capture/browser MCP, VRT tooling, token definitions) up front and either explicitly announces a degraded mode ("ファイル直読みモードで続行する", "画像モード (忠実度低下) で続行する", "キャプチャなしで続行する") or aborts with a clear message. Never silently continue past a missing dependency, and never invent/guess a value a human should confirm (paths, colors, tokens) — use `AskUserQuestion`, which in a harness without a question tool means asking in text and stopping until the user answers.
 
 Command relationships (who feeds whom, and why they're not merged):
 

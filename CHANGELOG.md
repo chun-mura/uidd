@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.0 - 2026-10-27
+
+- Move the six commands to `skills/<name>/SKILL.md` so Codex (which does not ship commands in plugins) and Cursor can run them; Claude Code still invokes them as `/uidd:<name>`
+- Add `name` and `disable-model-invocation: true` to each, plus `agents/openai.yaml` (`allow_implicit_invocation: false`) for Codex, so no harness starts them on its own
+- Replace `${CLAUDE_PLUGIN_ROOT}/skills/...` in `figma-implement` with paths relative to the skill, and state how `$ARGUMENTS` and `AskUserQuestion` read in harnesses without them (ask in text and stop; never continue on a guess)
+- Add `.codex-plugin/plugin.json` and `.cursor-plugin/plugin.json`
+- README: install and invocation for the three harnesses; index moved to skills
+
 ## 0.8.0 - 2026-07-20
 
 - Freeze `skills/ui-judgment` while it has no real-project rules; retain a non-distributed reactivation template and stop requiring writes to an installed plugin cache

@@ -1,7 +1,11 @@
 ---
+name: sb-verify
 description: Storybook のストーリー網羅・a11y・インタラクション・状態網羅を検証するオーケストレーター
 argument-hint: [対象ストーリーのパス。省略時は全件]
+disable-model-invocation: true
 ---
+
+**パスと引数と質問の扱い**: この文書の相対パスは、この SKILL.md があるディレクトリを起点にする。`$ARGUMENTS` が文字のまま残っている場合（Codex・Cursor など）は、この skill を呼び出したメッセージのうち skill 名以外の部分を `$ARGUMENTS` とみなす。`AskUserQuestion` と書かれた箇所は、ユーザーに質問するツールがあればそれを使い、無ければ質問を書いて作業を止め、回答を待つ。回答が無いまま推測で進めない。
 
 対象: $ARGUMENTS (未指定なら全ストーリー)
 
